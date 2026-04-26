@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "macros.html" import resume_item, project_card %}
+
+{% block content %}
+<section class="hero-container">
+  <div class="hero">
+    <div class="hero__text">
+      <h1 class="hero__header">Hi, I'm {{ site.first_name }}.</h1>
+      <p class="hero__body">{{ site.bio }}</p>
+    </div>
+    <img class="hero__image" src="images/{{ site.headshot }}" alt="{{ site.headshot_alt }}" />
+  </div>
+</section>
+
+<section class="resume-container">
+  <div class="resume">
+    <span class="link" id="resume-link">&nbsp;</span>
+    <h2>Résumé</h2>
+    {% for item in resume %}
+      {{ resume_item(item) }}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="portfolio-container">
+  <div class="portfolio">
+    <span class="link" id="portfolio-link">&nbsp;</span>
+    <h2 class="portfolio__header">Portfolio</h2>
+    <div class="portfolio__table-of-contents">
+      <h3>Contents</h3>
+      <ul>
+        {% for project in portfolio %}
+        <li><a href="#{{ project.id }}">{{ project.toc_label | default(project.title) }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% for project in portfolio %}
+      {{ project_card(project) }}
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

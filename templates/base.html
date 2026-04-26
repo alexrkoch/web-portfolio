@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no">
+  <title>{{ site.title }}</title>
+  <link href="css/style.css" type="text/css" rel="stylesheet" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💾</text></svg>" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+  </style>
+</head>
+
+<body>
+  <header class="header-container">
+    <div class="header">
+      <a href="#" class="header__logo">
+        <p>{{ site.name }}</p>
+      </a>
+      <div class="header__socials">
+        <a href="{{ site.github }}" target="_blank">
+          {% include "partials/icon-github.html" %}
+        </a>
+        <a href="{{ site.linkedin }}" target="_blank">
+          {% include "partials/icon-linkedin.html" %}
+        </a>
+      </div>
+      <nav class="header__navigation">
+        {% for item in site.nav %}
+        <a href="{{ item.href }}">{{ item.label }}</a>
+        {% endfor %}
+      </nav>
+      <div class="header__mobile">
+        <button class="header__mobile--hamburger">
+          <span class="header__mobile--hamburger-line"></span>
+          <span class="header__mobile--hamburger-line"></span>
+          <span class="header__mobile--hamburger-line"></span>
+        </button>
+        <nav class="header__mobile--menu">
+          <ul>
+            {% for item in site.nav %}
+            <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+            {% endfor %}
+            <li><a href="{{ site.github }}" target="_blank">GitHub</a></li>
+            <li><a href="{{ site.linkedin }}" target="_blank">LinkedIn</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+</body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', afterContentLoad);
+
+  function afterContentLoad() {
+    const hamburger = document.querySelector('.header__mobile--hamburger');
+    const mobileNavLinks = document.querySelectorAll('.header__mobile--menu a');
+    mobileNavClickListeners(mobileNavLinks);
+    hamburger.addEventListener('click', hamburgerClickListener);
+  }
+
+  function mobileNavClickListeners(mobileNavLinks) {
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', hamburgerClickListener);
+    });
+  }
+
+  function hamburgerClickListener() {
+    const navMenu = document.querySelector('.header__mobile--menu');
+    navMenu.classList.toggle('header__mobile--menu-visible');
+  }
+</script>
+
+</html>

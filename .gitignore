@@ -10,3 +10,8 @@ to-do.txt
 /.vscode
 
 .DS_Store
+
+node_modules/
+dist/
+content/
+deploy.sh

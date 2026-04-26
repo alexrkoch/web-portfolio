@@ -1,0 +1,36 @@
+{% macro resume_item(item) %}
+<div class="resume-item {{ item.id }}">
+  <div class="resume-item__headline">
+    <h3>{{ item.title }}{% if item.org %}, {{ item.org }}{% endif %}</h3>
+    <h4>{{ item.dates }}</h4>
+  </div>
+  <ul class="resume-item__list">
+    {% for bullet in item.bullets %}
+    <li class="resume-item__list-item">{{ bullet | safe }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endmacro %}
+
+{% macro project_card(project) %}
+<div class="project {{ project.slug }}">
+  <span class="link" id="{{ project.id }}">&nbsp;</span>
+  {% if project.image %}
+  <div>
+    <img class="{{ project.image_class | default('desktop-image') }}"
+      src="images/{{ project.image }}"
+      alt="{{ project.image_alt | default(project.title) }}" />
+  </div>
+  {% endif %}
+  <h3 class="project__header">{{ project.title }}</h3>
+  {% if project.links %}
+  <div class="project__links">
+    {% for link in project.links %}
+    <a target="_blank" href="{{ link.href }}">{{ link.label }}</a>
+    {% if not loop.last %}<span> | </span>{% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+  {{ project.content | safe }}
+</div>
+{% endmacro %}

@@ -1,6 +1,6 @@
 // Normalize and Reset
 
-@import "./variables_mixins_functions";
+@use "./variables_mixins_functions" as *;
 
 *,
 *::before,

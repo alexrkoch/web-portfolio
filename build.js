@@ -63,7 +63,7 @@ async function processImages() {
     const name = path.basename(file, path.extname(file));
     const output = path.join(outDir, `${name}.webp`);
 
-    if (fs.existsSync(output)) return;
+    if (fs.existsSync(output) && fs.statSync(output).mtimeMs > fs.statSync(input).mtimeMs) return;
 
     await sharp(input)
       .resize({ width: 1200, withoutEnlargement: true })
